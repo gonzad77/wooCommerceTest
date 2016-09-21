@@ -1,0 +1,39 @@
+<ion-view cache-view="false">
+  <ion-header-bar class="bar-stable">
+    <h1 class="title">{{product.name}}</h1>
+  </ion-header-bar>
+  <ion-content>
+
+    <div class="list card">
+      <div class="item item-body">
+        <ion-slide-box on-slide-changed="slideHasChanged($index)">
+          <ion-slide ng-repeat="image in images track by image.id">
+              <img class="full-image" ng-src="{{image.src}}"><img>
+          </ion-slide>
+        </ion-slide-box>
+        <p>
+          {{product.description}}
+        </p>
+        <p>
+          <spam>Categories: {{categories}} <spam>
+        </p>
+        <p>
+          <spam> Price: {{product.price}} <spam>
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div ng-repeat="review in reviews track by review.id">
+        <div class="item item-divider">
+          {{review.name}} - {{review.date_created}}
+        </div>
+        <div class="item item-text-wrap">
+          {{review.review}}
+        </div>
+        <br>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>
