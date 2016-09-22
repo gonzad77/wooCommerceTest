@@ -33,6 +33,9 @@ angular.module('starter', ['ionic', 'controllers', 'services', 'config'])
     resolve:{
           products: function(ProductService){
             return ProductService.getProducts();
+          },
+          categories: function(ProductService){
+            return ProductService.getCategories();
           }
       }
   })
@@ -49,6 +52,12 @@ angular.module('starter', ['ionic', 'controllers', 'services', 'config'])
         return ProductService.getReviews($stateParams.productId);
       }
     }
+  })
+
+  .state('order', {
+    url: '/order',
+    templateUrl: "views/order.html",
+    controller: 'OrderCtrl',
   })
 
   $urlRouterProvider.otherwise('/menu');

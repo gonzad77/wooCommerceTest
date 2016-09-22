@@ -1,6 +1,7 @@
 <ion-view cache-view="false">
   <ion-header-bar class="bar-stable">
     <h1 class="title">{{product.name}}</h1>
+    <button class="button button-icon icon ion-ios-cart" ng-click="confirm()"></button>
   </ion-header-bar>
   <ion-content>
 
@@ -16,6 +17,9 @@
         </p>
         <p>
           <spam>Categories: {{categories}} <spam>
+        </p>
+        <p>
+          <spam>Tags: {{tags}} <spam>
         </p>
         <p>
           <spam> Price: {{product.price}} <spam>
