@@ -77,3 +77,7 @@ angular.module('controllers', [])
 .controller('OrderCtrl', function($scope,$state){
 
 })
+
+.controller('ProfileCtrl' , function($scope, $state, orders, OrderService){
+
+})

@@ -110,16 +110,19 @@ angular.module('services', [])
 
   this.buy = function(productId, clientId){
     var deferred = $q.defer();
-    $http.post( appConfig.DOMAIN_URL + '/wp-json/wc/v1/orders', {
-    params: { consumer_key: appConfig.KEY,
-              consumer_secret: appConfig.SECRET_KEY,
-              customer_id: clientId,
-              line_items: [
-                            {
-                              product_id: productId
-                            }
-                          ]
+    $http.post( appConfig.DOMAIN_URL + '/wp-json/wc/v1/orders?' ,
+    {headers: {'Content-Type': 'application/x-www-form-urlencoded'}},
+    {params: {
+          consumer_key: appConfig.KEY,
+          consumer_secret: appConfig.SECRET_KEY,
+          customer_id: clientId,
+          line_items: [
+            {
+              product_id: productId,
+              quantity: 1
             }
+          ]
+        }
     })
     .then(function(res){
       console.log(res);
@@ -131,5 +134,26 @@ angular.module('services', [])
     return deferred.promise;
   }
 
+})
 
+.service('OrderService', function($q, $http, appConfig){
+
+  this.getOrders = function(userId){
+    var deferred = $q.defer();
+    $http.get( appConfig.DOMAIN_URL + '/wp-json/wc/v1/orders', {
+    params: { consumer_key: appConfig.KEY,
+              consumer_secret: appConfig.SECRET_KEY,
+              per_page: 24,
+              customer: userId
+            }
+    })
+    .then(function(res){
+      console.log(res);
+      deferred.resolve(res);
+    }, function(error){
+      console.log(error);
+      deferred.reject(error);
+    })
+    return deferred.promise;
+  }
 })

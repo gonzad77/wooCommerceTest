@@ -60,6 +60,17 @@ angular.module('starter', ['ionic', 'controllers', 'services', 'config'])
     controller: 'OrderCtrl',
   })
 
+  .state('profile',{
+    url: '/profile/:userId',
+    templateUrl: 'views/profile.html',
+    controller: 'ProfileCtrl',
+    resolve:{
+      orders: function(OrderService, $stateParams){
+        return OrderService.getOrders($stateParams.userId);
+      }
+    }
+  })
+
   $urlRouterProvider.otherwise('/menu');
 })
 
