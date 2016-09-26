@@ -110,18 +110,21 @@ angular.module('services', [])
 
   this.buy = function(productId, clientId){
     var deferred = $q.defer();
-    $http.post( appConfig.DOMAIN_URL + '/wp-json/wc/v1/orders?' ,
-    {headers: {'Content-Type': 'application/x-www-form-urlencoded'}},
-    {params: {
+    $http({
+    method: 'POST',
+    url: appConfig.DOMAIN_URL + '/wp-json/wc/v1/orders' ,
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    paramSerializer: '$httpParamSerializerJQLike',
+    params: {
           consumer_key: appConfig.KEY,
           consumer_secret: appConfig.SECRET_KEY,
-          customer_id: clientId,
-          line_items: [
+          line_items:[
             {
               product_id: productId,
               quantity: 1
             }
-          ]
+          ],
+          customer_id: clientId,
         }
     })
     .then(function(res){
